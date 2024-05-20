@@ -20,6 +20,8 @@ def index(request):
     context['vehicule_count'] = Vehicle.objects.count()
     context['voyage_count'] = Voyage.objects.count()
 
+    context['drivers'] = list(Driver.objects.values_list('id_d', flat=True))
+
     html_template = loader.get_template('home/index.html')
     return HttpResponse(html_template.render(context, request))
 
