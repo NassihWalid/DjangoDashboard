@@ -8,11 +8,17 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
+from .models import Driver, Road, Alert, Vehicle,Voyage
 
 
 @login_required(login_url="/login/")
 def index(request):
     context = {'segment': 'index'}
+    context['driver_count'] = Driver.objects.count()
+    context['road_count'] = Road.objects.count()
+    context['alert_count'] = Alert.objects.count()
+    context['vehicule_count'] = Vehicle.objects.count()
+    context['voyage_count'] = Voyage.objects.count()
 
     html_template = loader.get_template('home/index.html')
     return HttpResponse(html_template.render(context, request))
