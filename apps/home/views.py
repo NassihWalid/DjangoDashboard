@@ -2,7 +2,9 @@
 """
 Copyright (c) 2019 - present AppSeed.us
 """
-
+import string
+import random
+from datetime import datetime, timedelta
 from django import template
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
@@ -11,14 +13,21 @@ from django.urls import reverse
 from .models import Driver, Road, Alert, Vehicle,Voyage
 
 
+def delete_all_alerts(request):
+    Alert.objects.all().delete()
+    return HttpResponse("All alerts have been deleted.")
+
+
 @login_required(login_url="/login/")
 def index(request):
+
     context = {'segment': 'index'}
     context['driver_count'] = Driver.objects.count()
     context['road_count'] = Road.objects.count()
     context['alert_count'] = Alert.objects.count()
     context['vehicule_count'] = Vehicle.objects.count()
     context['voyage_count'] = Voyage.objects.count()
+
 
     context['drivers'] = list(Driver.objects.values_list('id_d', flat=True))
 
@@ -50,3 +59,5 @@ def pages(request):
     except:
         html_template = loader.get_template('home/page-500.html')
         return HttpResponse(html_template.render(context, request))
+
+

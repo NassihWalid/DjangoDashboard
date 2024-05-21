@@ -97,12 +97,12 @@ The project is coded using a simple and intuitive structure presented below:
    |-- apps/
    |    |
    |    |-- home/                          # A simple app that serve HTML files
-   |    |    |-- views.py                  # Serve HTML pages for authenticated users
+   |    |    |-- Functions.py                  # Serve HTML pages for authenticated users
    |    |    |-- urls.py                   # Define some super simple routes  
    |    |
    |    |-- authentication/                # Handles auth routes (login and register)
    |    |    |-- urls.py                   # Define authentication routes  
-   |    |    |-- views.py                  # Handles login and registration  
+   |    |    |-- Functions.py                  # Handles login and registration  
    |    |    |-- forms.py                  # Define auth forms (login and register) 
    |    |
    |    |-- static/
