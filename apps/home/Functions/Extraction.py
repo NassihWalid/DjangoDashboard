@@ -1,6 +1,8 @@
 from collections import defaultdict
 from django.db.models.functions import TruncMonth
 from apps.home.models import Alert
+from django.db.models import Count
+
 
 
 def get_alerts_grouped_by_month():
@@ -21,7 +23,22 @@ def get_alerts_grouped_by_month():
         })
 
     # Convert defaultdict to a regular dict before returning
-    return dict(alerts_by_month)
+    return list(alerts_by_month)
+
+
+def get_alerts_count_per_month():
+    # Query alerts, annotate each with the month, and count them
+    alerts = Alert.objects.annotate(month=TruncMonth('date')).values('month').annotate(count=Count('id_a')).order_by(
+        'month')
+
+    # Create a list of counts per month
+    counts_per_month = [alert['count'] for alert in alerts]
+    print(counts_per_month)
+    return counts_per_month
+
+
+# Usage example
+counts_per_month = get_alerts_count_per_month()
 
 
 

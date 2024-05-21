@@ -11,11 +11,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
 from .models import Driver, Road, Alert, Vehicle,Voyage
+from .Functions.Extraction import get_alerts_grouped_by_month, get_alerts_count_per_month
 
 
-def delete_all_alerts(request):
-    Alert.objects.all().delete()
-    return HttpResponse("All alerts have been deleted.")
+
 
 
 @login_required(login_url="/login/")
@@ -27,7 +26,7 @@ def index(request):
     context['alert_count'] = Alert.objects.count()
     context['vehicule_count'] = Vehicle.objects.count()
     context['voyage_count'] = Voyage.objects.count()
-
+    context['alerts_count_grouped_by_month'] = get_alerts_count_per_month()
 
     context['drivers'] = list(Driver.objects.values_list('id_d', flat=True))
 
@@ -61,3 +60,6 @@ def pages(request):
         return HttpResponse(html_template.render(context, request))
 
 
+def delete_all_alerts(request):
+    Alert.objects.all().delete()
+    return HttpResponse("All alerts have been deleted.")
