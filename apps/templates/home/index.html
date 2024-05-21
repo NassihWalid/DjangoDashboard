@@ -107,9 +107,9 @@
                         <div class="col-md-6">
                             <div class="card support-bar overflow-hidden">
                                 <div class="card-body pb-0">
-                                    <h2 class="m-0">53.94%</h2>
-                                    <span class="text-primary">Conversion Rate</span>
-                                    <p class="mb-3 mt-3">Number of conversions divided by the total visitors. </p>
+                                    <h2 class="m-0">{{ percent_voyages_without_alerts|floatformat:2  }}%</h2>
+                                    <span class="text-primary">pourcentage de voyages avec alert</span>
+                                    <p class="mb-3 mt-3">Le pourcentage de voyages realiser avec une alert</p>
                                 </div>
                                 <div id="support-chart"></div>
                                 <div class="card-footer border-0 bg-primary text-white background-pattern-white">
@@ -166,12 +166,12 @@
                         <div class="card-body">
                             <div class="row pb-2">
                                 <div class="col-auto m-b-10">
-                                    <h3 class="mb-1">$21,356.46</h3>
-                                    <span>Total Sales</span>
+                                    <h3 class="mb-1">{{ count_voyages_without_alerts }}</h3>
+                                    <span>voyages sans alerts</span>
                                 </div>
                                 <div class="col-auto m-b-10">
-                                    <h3 class="mb-1">$1935.6</h3>
-                                    <span>Average</span>
+                                    <h3 class="mb-1">{{ count_voyages_with_alerts }}</h3>
+                                    <span>voyages sans alerts</span>
                                 </div>
                             </div>
                             <div id="account-chart"></div>

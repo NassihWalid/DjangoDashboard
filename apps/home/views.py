@@ -11,7 +11,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
 from .models import Driver, Road, Alert, Vehicle,Voyage
-from .Functions.Extraction import get_alerts_grouped_by_month, get_alerts_count_per_month
+from .Functions.Extraction import get_alerts_grouped_by_month, get_alerts_count_per_month,count_voyages_with_and_without_alerts
 
 
 
@@ -27,7 +27,9 @@ def index(request):
     context['vehicule_count'] = Vehicle.objects.count()
     context['voyage_count'] = Voyage.objects.count()
     context['alerts_count_grouped_by_month'] = get_alerts_count_per_month()
-
+    context['count_voyages_with_alerts'] = count_voyages_with_and_without_alerts()[0]
+    context['count_voyages_without_alerts'] = count_voyages_with_and_without_alerts()[1]
+    context['percent_voyages_without_alerts'] = count_voyages_with_and_without_alerts()[0]/count_voyages_with_and_without_alerts()[0]+count_voyages_with_and_without_alerts()[1]
     context['drivers'] = list(Driver.objects.values_list('id_d', flat=True))
 
     html_template = loader.get_template('home/index.html')

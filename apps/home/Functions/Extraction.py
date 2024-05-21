@@ -1,6 +1,6 @@
 from collections import defaultdict
 from django.db.models.functions import TruncMonth
-from apps.home.models import Alert
+from apps.home.models import Alert,Voyage
 from django.db.models import Count
 
 
@@ -33,12 +33,20 @@ def get_alerts_count_per_month():
 
     # Create a list of counts per month
     counts_per_month = [alert['count'] for alert in alerts]
-    print(counts_per_month)
     return counts_per_month
 
 
-# Usage example
-counts_per_month = get_alerts_count_per_month()
+def count_voyages_with_and_without_alerts():
+    # Annotate each voyage with the count of related alerts
+    voyages = Voyage.objects.annotate(alert_count=Count('alerts'))
+
+    # Count voyages with at least one alert
+    voyages_with_alerts = voyages.filter(alert_count__gt=0).count()
+
+    # Count voyages with no alerts
+    voyages_without_alerts = voyages.filter(alert_count=0).count()
+
+    return voyages_with_alerts, voyages_without_alerts
 
 
 

@@ -134,7 +134,7 @@ function floatchart() {
             opacity: [0.85, 1],
         },
         xaxis: {
-            categories: ['01/2022', '02/2022', '03/2022', '04/2022', '05/2022', '06/2022', '07/2022', '08/2022', '09/2022', '10/2022', '11/2022', '12/2022'], // Provide the correct month/year labels here
+            categories: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'], // Provide the correct month/year labels here
         },
         yaxis: {
             min: 0
